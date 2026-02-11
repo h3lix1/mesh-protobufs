@@ -845,6 +845,21 @@ enum TelemetrySensorType {
    * BH1750 light sensor
    */
   BH1750 = 45;
+  
+  /*
+   * HDC1080 Temperature and Humidity Sensor
+   */
+  HDC1080 = 46;
+
+  /*
+   * STH21 Temperature and R. Humidity sensor
+   */
+  SHT21 = 47;
+
+  /*
+   * Sensirion STC31 CO2 sensor
+   */
+  STC31 = 48;
 }
 
 /*
