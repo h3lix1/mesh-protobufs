@@ -794,6 +794,25 @@ def test_writeConfig_with_no_radioConfig(capsys):
     assert err == ""
 
 
+@pytest.mark.unit
+def test_writeConfig_traffic_management():
+    """Test writeConfig with traffic_management module config."""
+    iface = MagicMock(autospec=SerialInterface)
+    anode = Node(iface, "bar", noProto=True)
+    iface.localNode = anode
+    anode._sendAdmin = MagicMock()
+
+    anode.moduleConfig.traffic_management.enabled = True
+    anode.moduleConfig.traffic_management.rate_limit_enabled = True
+    anode.writeConfig("traffic_management")
+
+    anode._sendAdmin.assert_called_once()
+    sent_admin = anode._sendAdmin.call_args[0][0]
+    assert sent_admin.set_module_config.HasField("traffic_management")
+    assert sent_admin.set_module_config.traffic_management.enabled is True
+    assert sent_admin.set_module_config.traffic_management.rate_limit_enabled is True
+
+
 # TODO
 # @pytest.mark.unit
 # def test_writeConfig(caplog):
